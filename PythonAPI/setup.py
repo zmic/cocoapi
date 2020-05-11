@@ -1,15 +1,24 @@
 from setuptools import setup, Extension
 import numpy as np
+import shutil
 
 # To compile and install locally run "python setup.py build_ext --inplace"
 # To install library to Python site-packages run "python setup.py build_ext install"
 
+
+if shutil.which("cl.exe") is None:
+    extra_compile_args=['-Wno-cpp', '-Wno-unused-function', '-std=c99'],
+else:
+    # If Visual Studio compiler is found in path, assume we want to build with cl.exe
+    # So don't use gcc options
+    extra_compile_args=None
+    
 ext_modules = [
     Extension(
         'pycocotools._mask',
         sources=['../common/maskApi.c', 'pycocotools/_mask.pyx'],
         include_dirs = [np.get_include(), '../common'],
-        extra_compile_args=['-Wno-cpp', '-Wno-unused-function', '-std=c99'],
+        extra_compile_args=extra_compile_args,
     )
 ]
 
