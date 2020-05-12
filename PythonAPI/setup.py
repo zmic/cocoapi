@@ -26,7 +26,7 @@ ext_modules = [
 ]
 
 setup(
-    name='pycocotools',
+    name='pycocotools-windows',
     packages=['pycocotools'],
     package_dir = {'pycocotools': 'pycocotools'},
     install_requires=[
@@ -35,5 +35,7 @@ setup(
         'matplotlib>=2.1.0'
     ],
     version='2.0',
-    ext_modules= ext_modules
+    ext_modules= ext_modules,
+    python_requires='>=3.6',
+    url="https://github.com/zmic/cocoapi",
 )
