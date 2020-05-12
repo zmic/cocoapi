@@ -25,7 +25,13 @@ ext_modules = [
     )
 ]
 
+readme = open('README.rst', 'r')
+README_TEXT = readme.read()
+readme.close()
+        
 setup(
+    description='cocotools for Windows',
+    long_description = README_TEXT,      
     name='pycocotools-windows',
     packages=['pycocotools'],
     package_dir = {'pycocotools': 'pycocotools'},
@@ -34,7 +40,7 @@ setup(
         'cython>=0.27.3',
         'matplotlib>=2.1.0'
     ],
-    version='2.0',
+    version='2.0.0.2',
     ext_modules= ext_modules,
     python_requires='>=3.6',
     url="https://github.com/zmic/cocoapi",

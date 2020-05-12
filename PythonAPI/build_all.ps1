@@ -18,8 +18,15 @@ if (0)
     }
 }
 
+del ./dist/*.*
 
 foreach ($p in $pythons)
 {
+    #& "$p\python.exe" .\setup.py build_ext --inplace
     & "$p\python.exe" .\setup.py sdist bdist_wheel
 }
+
+del ./dist/*.gz
+#p37 -m twine upload dist/*
+
+
