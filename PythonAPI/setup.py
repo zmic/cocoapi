@@ -1,17 +1,20 @@
 from setuptools import setup, Extension
 import numpy as np
 import shutil
+import distutils.ccompiler
 
 # To compile and install locally run "python setup.py build_ext --inplace"
 # To install library to Python site-packages run "python setup.py build_ext install"
 
 
-if shutil.which("cl.exe") is None:
-    extra_compile_args=['-Wno-cpp', '-Wno-unused-function', '-std=c99'],
+#
+# If running on Windows, compiler_name will be "msvc" so don't use gcc options
+#
+compiler_name = distutils.ccompiler.get_default_compiler()
+if compiler_name == "msvc":
+    extra_compile_args=[]
 else:
-    # If Visual Studio compiler is found in path, assume we want to build with cl.exe
-    # So don't use gcc options
-    extra_compile_args=None
+    extra_compile_args=['-Wno-cpp', '-Wno-unused-function', '-std=c99'],
     
 ext_modules = [
     Extension(
